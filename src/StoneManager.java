@@ -1,18 +1,17 @@
 import Utils.Log;
 
-import javax.bluetooth.BluetoothStateException;
-import javax.bluetooth.LocalDevice;
+import javax.bluetooth.*;
 
 public class StoneManager{
-    public static void main(String[] arg0){
+    public static void main(String[] arg0) {
         Log log = new Log();
 
         LocalDevice btDevice;
-        try{
+        try {
             btDevice = LocalDevice.getLocalDevice();
 
             log.printLog(2, "MAC Addr is " + btDevice.getBluetoothAddress());
-        }catch(BluetoothStateException e){
+        } catch (BluetoothStateException e) {
             log.printLog(1, e.toString());
         }
     }
