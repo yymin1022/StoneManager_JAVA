@@ -10,36 +10,14 @@ import java.io.OutputStream;
 import java.util.Vector;
 
 public class BTController extends Thread implements DiscoveryListener{
+    Log log = new Log();
     UUID defaultUUID;
 
-    /**
-     * Local bluetooth device.
-     */
-    private LocalDevice local;
-
-    /**
-     * Agent responsible for the discovery of bluetooth devices.
-     */
+    private LocalDevice localDevice;
     private DiscoveryAgent agent;
-
-    /**
-     * Output stream used to send information to the bluetooth.
-     */
     private OutputStream dout;
-
-    /**
-     * Bluetooth Connection.
-     */
     private StreamConnection conn;
-
-    /**
-     * List of bluetooth devices of interest. (name starting with the defined token)
-     */
     private Vector<RemoteDevice> devices;
-
-    /**
-     * Services of interest (defined in UUID) of each device.
-     */
     private Vector<ServiceRecord> services;
 
     public BTController(){
@@ -47,13 +25,10 @@ public class BTController extends Thread implements DiscoveryListener{
     }
 
     @Override
-    public void run() {
+    public void run(){
         findDevices();
     }
 
-    /**
-     * Find all the discoverable devices in range.
-     */
     private void findDevices(){
         try{
             devices              = new Vector<RemoteDevice>();
@@ -61,69 +36,50 @@ public class BTController extends Thread implements DiscoveryListener{
             DiscoveryAgent agent = local.getDiscoveryAgent();
 
             agent.startInquiry(DiscoveryAgent.GIAC, this);
-            debugString("Starting device discovery...");
-        }catch(Exception e) {
-            debugString("Error initiating discovery.");
+        }catch(Exception e){
+            log.printLog(1, e.toString());
         }
     }
 
-    /**
-     * Obtains a list of services with the UUID defined from a device.
-     *
-     * @param device
-     *      Device to obtain the service list.
-     */
     protected void findServices(RemoteDevice device){
-        try {
+        try{
             defaultUUID = new UUID("00001107D10211E19B2300025B00A5A5", false);
         }catch(IllegalArgumentException e){
             System.out.println(e.toString());
         }
 
         try{
-            UUID[] uuids  = new UUID[1];
-            uuids[0]      = defaultUUID;    //The UUID of the each service
-            local         = LocalDevice.getLocalDevice();
-            agent         = local.getDiscoveryAgent();
+            UUID[] uuids = new UUID[1];
+            uuids[0] = defaultUUID;    //The UUID of the each service
+            localDevice = LocalDevice.getLocalDevice();
+            agent = localDevice.getDiscoveryAgent();
 
             agent.searchServices(null, uuids, device, this);
-            debugString("Starting Service Discovery...");
         }catch(Exception e){
-            debugString("Error finding services.");
         }
     }
 
-    /**
-     * Sends a message to all the devices. (using the service)
-     *
-     * @param str
-     *      Byte array which represents a string.
-     */
-    public void broadcastCommand(String str) {
-        for(ServiceRecord sr : services) {
+    public void broadcastCommand(String str){
+        for(ServiceRecord sr : services){
             String url = sr.getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
 
             conn = null;
 
-            try {
-                debugString("Sending command to " + url);
-
+            try{
                 conn = (StreamConnection) Connector.open(url);
                 dout = conn.openOutputStream();
 
-//                dout.writeUTF(str);
-                int[] paramVarArgs = new int[] {100, 3, 0, 0, 0};
+                int[] paramVarArgs = new int[]{100, 3, 0, 0, 0};
                 byte[] arrayOfByte0 = new byte[paramVarArgs.length];
                 byte[] arrayOfByte1;
                 int i = 0;
-                while (true) {
+                while(true){
                     arrayOfByte1 = arrayOfByte0;
-                    if (i < paramVarArgs.length) {
+                    if(i < paramVarArgs.length){
                         arrayOfByte0[i] = (byte)paramVarArgs[i];
                         i++;
                         continue;
                     }
-
                     break;
                 }
 
@@ -133,11 +89,7 @@ public class BTController extends Thread implements DiscoveryListener{
                 dout.flush();
                 dout.close();
                 conn.close();
-
-                debugString("Sent. Connection Closed.");
-
-            } catch (Exception e) {
-                debugString("Failed to connect to " + url);
+            }catch(Exception e){
                 e.printStackTrace();
             }
         }
@@ -145,55 +97,40 @@ public class BTController extends Thread implements DiscoveryListener{
 
 
     @Override
-    public void deviceDiscovered(RemoteDevice arg0, DeviceClass arg1) {
-        try {
+    public void deviceDiscovered(RemoteDevice arg0, DeviceClass arg1){
+        try{
             String name = arg0.getFriendlyName(true);
 
-            debugString("Found device: " + name);
+            log.printLog(2, "Device Found : " + name);
 
-            if(name.startsWith("STONE")) {
+            if(name.contains("STONE")){
                 devices.add(arg0);
             }
-        } catch (IOException e) {
-            debugString("Failed to get remoteDevice Name.");
+        }catch(IOException e){
         }
     }
 
     @Override
-    public void inquiryCompleted(int arg0) {
-        debugString("Inquiry Completed.");
-
-        // Start service probing
-        for(RemoteDevice d :devices) {
+    public void inquiryCompleted(int arg0){
+        for(RemoteDevice d :devices){
             System.out.println("FIND DEVICE : " + d.toString());
             findServices(d);
         }
     }
 
     @Override
-    public void serviceSearchCompleted(int arg0, int arg1) {
-        debugString("Service search completed.");
-
+    public void serviceSearchCompleted(int arg0, int arg1){
         broadcastCommand(new String("Hello world!"));
     }
 
     @Override
-    public void servicesDiscovered(int arg0, ServiceRecord[] arg1) {
-        for(ServiceRecord x : arg1) {
+    public void servicesDiscovered(int arg0, ServiceRecord[] arg1){
+        for(ServiceRecord x : arg1){
             services.add(x);
         }
     }
 
-    /**
-     * Helper to format a debug string for output.
-     *
-     * @param str
-     *      Debug Message
-     */
-    protected void debugString(String str) {
-        System.out.println(String.format("%s :: %s", this.getName(), str));
-    }
-
+    // frame functions are copied from Pantech Official StoneManager Android Application
     static byte[] frame(int paramInt1, int paramInt2, byte[] paramArrayOfbyte, int paramInt3){
         return frame(paramInt1, paramInt2, paramArrayOfbyte, paramInt3, (byte)0);
     }
@@ -202,9 +139,9 @@ public class BTController extends Thread implements DiscoveryListener{
         boolean bool;
         int i = paramArrayOfbyte.length;
 
-        if ((paramByte & 0x1) != 0) {
+        if((paramByte & 0x1) != 0){
             bool = true;
-        } else {
+        }else{
             bool = false;
         }
         if (bool) {
