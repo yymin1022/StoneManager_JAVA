@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="StoneManager_JAVA:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/StoneManager_JAVA_jar</output-path>
+    <root id="archive" name="StoneManager_JAVA.jar">
+      <element id="module-output" name="StoneManager_JAVA" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/bluecove-2.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

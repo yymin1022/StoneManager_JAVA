@@ -75,6 +75,7 @@ public class UIController{
             radioAurora.setEnabled(true);
             radioCandle.setEnabled(true);
             radioFirefly.setEnabled(true);
+            radioOff.setEnabled(true);
             radioRGB.setEnabled(true);
             radioWave.setEnabled(true);
             slideBrightness.setEnabled(true);
@@ -84,6 +85,7 @@ public class UIController{
             radioAurora.setEnabled(false);
             radioCandle.setEnabled(false);
             radioFirefly.setEnabled(false);
+            radioOff.setEnabled(false);
             radioRGB.setEnabled(false);
             radioWave.setEnabled(false);
             slideBrightness.setEnabled(false);

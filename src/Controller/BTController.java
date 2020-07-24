@@ -145,7 +145,7 @@ public class BTController extends Thread implements DiscoveryListener{
     // frame function is copied from Pantech Official StoneManager Android Application
     static byte[] frame(byte[] paramArrayOfbyte){
         byte[] arrayOfByte = new byte[13];
-        
+
         arrayOfByte[0] = -1;
         arrayOfByte[1] = 1;
         arrayOfByte[2] = (byte)0;
