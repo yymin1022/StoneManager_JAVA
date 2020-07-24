@@ -3,9 +3,6 @@ package Controller;
 import View.StoneManagerView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Enumeration;
 
@@ -15,20 +12,17 @@ public class UIController{
 
     public UIController(StoneManagerView stoneManagerView){
         btController = new BTController();
-        ItemListener radioListener = new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if(stoneManagerView.radioAurora.isSelected()){
-                    settingValues = new int[]{50, 3, 0, 0, 0};
-                }else if(stoneManagerView.radioCandle.isSelected()){
-                    settingValues = new int[]{50, 2, 0, 0, 0};
-                }else if(stoneManagerView.radioFirefly.isSelected()){
-                    settingValues = new int[]{50, 5, 0, 0, 0};
-                }else if(stoneManagerView.radioRGB.isSelected()){
-                    settingValues = new int[]{50, 1, 0, 0, 0};
-                }else if(stoneManagerView.radioWave.isSelected()){
-                    settingValues = new int[]{50, 4, 0, 0, 0};
-                }
+        ItemListener radioListener = e -> {
+            if(stoneManagerView.radioAurora.isSelected()){
+                settingValues = new int[]{50, 3, 0, 0, 0};
+            }else if(stoneManagerView.radioCandle.isSelected()){
+                settingValues = new int[]{50, 2, 0, 0, 0};
+            }else if(stoneManagerView.radioFirefly.isSelected()){
+                settingValues = new int[]{50, 5, 0, 0, 0};
+            }else if(stoneManagerView.radioRGB.isSelected()){
+                settingValues = new int[]{50, 1, 0, 0, 0};
+            }else if(stoneManagerView.radioWave.isSelected()){
+                settingValues = new int[]{50, 4, 0, 0, 0};
             }
         };
 
@@ -47,13 +41,10 @@ public class UIController{
                 System.out.println(jb.getText());
         }
 
-        stoneManagerView.btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btController = new BTController();
-                btController.settingValues = settingValues;
-                btController.start();
-            }
+        stoneManagerView.btnSave.addActionListener(e -> {
+            btController = new BTController();
+            btController.settingValues = settingValues;
+            btController.start();
         });
 
 
