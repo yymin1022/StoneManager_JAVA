@@ -14,7 +14,7 @@ public class BTController extends Thread implements DiscoveryListener{
     Log log = new Log();
     UUID defaultUUID;
 
-    public int[] settingValues = new int[]{30, 4, 0, 0, 0};
+    public int[] settingValues = new int[]{50, 1, 255, 255, 255};
 
     public LocalDevice localDevice;
     public DiscoveryAgent agent;

@@ -8,7 +8,7 @@ import java.util.Enumeration;
 
 public class UIController{
     BTController btController;
-    int[] settingValues = new int[]{};
+    int[] settingValues = new int[]{50, 1, 255, 255, 255};
 
     public UIController(StoneManagerView stoneManagerView){
         btController = new BTController();
@@ -20,7 +20,7 @@ public class UIController{
             }else if(stoneManagerView.radioFirefly.isSelected()){
                 settingValues = new int[]{50, 5, 0, 0, 0};
             }else if(stoneManagerView.radioRGB.isSelected()){
-                settingValues = new int[]{50, 1, 0, 0, 0};
+                settingValues = new int[]{50, 1, 255, 64, 129};
             }else if(stoneManagerView.radioWave.isSelected()){
                 settingValues = new int[]{50, 4, 0, 0, 0};
             }
@@ -46,7 +46,5 @@ public class UIController{
             btController.settingValues = settingValues;
             btController.start();
         });
-
-
     }
 }
