@@ -6,7 +6,7 @@ import com.bric.colorpicker.ColorPicker;
 import javax.swing.*;
 import java.awt.*;
 
-public class ColorPickerView extends JFrame {
+public class ColorPickerView extends JFrame{
     public ColorPickerView(int[] settingValues, UIController uiController){
         JButton btnClose = new JButton("확인");
         JPanel panelColorPicker =  new JPanel(new FlowLayout());
