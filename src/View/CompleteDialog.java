@@ -16,12 +16,13 @@ public class CompleteDialog extends JFrame{
         labelComplete.setText("STONE에 설정이 적용되었습니다!");
 
         panelComplete.add(labelComplete);
+        panelComplete.add(new JLabel(""));
         panelComplete.add(btnComplete);
 
         setContentPane(panelComplete);
         setLocationRelativeTo(null);
         setResizable(false);
-        setSize(250, 100);
+        setSize(250, 150);
         setTitle("STONE Manager");
         setVisible(true);
     }

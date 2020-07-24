@@ -68,7 +68,7 @@ public class BTController extends Thread implements DiscoveryListener{
     }
 
     public void broadcastCommand(){
-        connectingDialog.labelState.setText("STONE에 설정을 저장하는 중...");
+        connectingDialog.labelState.setText("   STONE에 설정을 저장하는 중...");
         for(ServiceRecord sr : services){
             String url = sr.getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
 
@@ -111,7 +111,7 @@ public class BTController extends Thread implements DiscoveryListener{
 
     @Override
     public void deviceDiscovered(RemoteDevice arg0, DeviceClass arg1){
-        connectingDialog.labelState.setText("STONE을 탐색하는 중...");
+        connectingDialog.labelState.setText("   STONE을 탐색하는 중...");
         try{
             String name = arg0.getFriendlyName(true);
 
