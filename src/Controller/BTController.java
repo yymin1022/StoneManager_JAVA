@@ -1,6 +1,7 @@
 package Controller;
 
 import Utils.Log;
+import View.CompleteDialog;
 import View.ConnectingDialog;
 
 import javax.bluetooth.*;
@@ -98,6 +99,8 @@ public class BTController extends Thread implements DiscoveryListener{
                 conn.close();
 
                 connectingDialog.dispose();
+
+                new CompleteDialog();
                 this.stop();
             }catch(Exception e){
                 log.printLog(1, e.toString());

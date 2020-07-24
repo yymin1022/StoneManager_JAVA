@@ -15,8 +15,9 @@ public class ConnectingDialog extends JFrame{
         panelState.add(labelState);
 
         setContentPane(panelState);
+        setLocationRelativeTo(null);
         setResizable(false);
-        setSize(150, 100);
+        setSize(200, 100);
         setTitle("STONE Manager");
         setUndecorated(true);
         setVisible(true);

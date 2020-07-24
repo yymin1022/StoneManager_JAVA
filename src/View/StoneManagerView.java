@@ -51,6 +51,7 @@ public class StoneManagerView{
 
         frameMain.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frameMain.setLayout(new FlowLayout());
+        frameMain.setLocationRelativeTo(null);
         frameMain.setResizable(false);
         frameMain.setSize(420, 170);
         frameMain.setTitle("STONE Manager");
