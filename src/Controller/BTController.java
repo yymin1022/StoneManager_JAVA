@@ -91,7 +91,7 @@ public class BTController extends Thread implements DiscoveryListener{
                     break;
                 }
 
-                byte[] arrayOfByte = frame(20564, 530, arrayOfByte1, 5);
+                byte[] arrayOfByte = frame(arrayOfByte1);
                 dout.write(arrayOfByte);
 
                 dout.flush();
@@ -142,39 +142,20 @@ public class BTController extends Thread implements DiscoveryListener{
         Collections.addAll(services, arg1);
     }
 
-    // frame functions are copied from Pantech Official StoneManager Android Application
-    static byte[] frame(int paramInt1, int paramInt2, byte[] paramArrayOfbyte, int paramInt3){
-        return frame(paramInt1, paramInt2, paramArrayOfbyte, paramInt3, (byte)0);
-    }
-
-    static byte[] frame(int paramInt1, int paramInt2, byte[] paramArrayOfbyte, int paramInt3, byte paramByte){
-        boolean bool;
-        int i = paramArrayOfbyte.length;
-
-        bool = (paramByte & 0x1) != 0;
-        if(bool){
-            i = 1;
-        }else{
-            i = 0;
-        }
-        i = paramInt3 + 8 + i;
-        byte[] arrayOfByte = new byte[i];
+    // frame function is copied from Pantech Official StoneManager Android Application
+    static byte[] frame(byte[] paramArrayOfbyte){
+        byte[] arrayOfByte = new byte[13];
+        
         arrayOfByte[0] = -1;
         arrayOfByte[1] = 1;
-        arrayOfByte[2] = paramByte;
-        arrayOfByte[3] = (byte)paramInt3;
-        arrayOfByte[4] = (byte)(paramInt1 >> 8);
-        arrayOfByte[5] = (byte)paramInt1;
-        arrayOfByte[6] = (byte)(paramInt2 >> 8);
-        arrayOfByte[7] = (byte)paramInt2;
-        for (paramInt1 = 0; paramInt1 < paramInt3; paramInt1++)
-            arrayOfByte[paramInt1 + 8] = paramArrayOfbyte[paramInt1];
-        if (bool) {
-            paramByte = 0;
-            for (paramInt1 = 0; paramInt1 < i - 1; paramInt1++)
-                paramByte = (byte)(arrayOfByte[paramInt1] ^ paramByte);
-            arrayOfByte[i - 1] = paramByte;
-        }
+        arrayOfByte[2] = (byte)0;
+        arrayOfByte[3] = (byte)5;
+        arrayOfByte[4] = (byte)(20564 >> 8);
+        arrayOfByte[5] = (byte)20564;
+        arrayOfByte[6] = (byte)(530 >> 8);
+        arrayOfByte[7] = (byte)530;
+        System.arraycopy(paramArrayOfbyte, 0, arrayOfByte, 8, 5);
+
         return arrayOfByte;
     }
 }

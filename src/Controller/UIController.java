@@ -40,7 +40,7 @@ public class UIController{
             }else if(radioWave.isSelected()){
                 settingValues = new int[]{slideBrightness.getValue(), 4, 0, 0, 0};
             }
-            
+
             if(radioOff.isSelected()) {
                 settingValues = new int[]{slideBrightness.getValue(), 0, 0, 0, 0};
 
