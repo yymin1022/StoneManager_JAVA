@@ -5,7 +5,6 @@ import View.StoneManagerView;
 
 import javax.swing.*;
 import java.awt.event.ItemListener;
-import java.util.Enumeration;
 
 public class UIController{
     public int[] settingValues = new int[]{50, 1, 255, 255, 255};
@@ -51,15 +50,6 @@ public class UIController{
         radioOff.addItemListener(radioListener);
         radioRGB.addItemListener(radioListener);
         radioWave.addItemListener(radioListener);
-
-        Enumeration<AbstractButton> enums = stoneManagerView.groupRadio.getElements();
-        while(enums.hasMoreElements()){
-            AbstractButton ab = enums.nextElement();
-            JRadioButton jb = (JRadioButton)ab;
-
-            if(jb.isSelected())
-                System.out.println(jb.getText());
-        }
 
         slideBrightness.addChangeListener(e -> settingValues[0] = slideBrightness.getValue());
 
