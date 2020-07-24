@@ -7,19 +7,21 @@ public class StoneManagerView{
     public ButtonGroup groupRadio;
     public JButton btnSave;
     public JFrame frameMain;
-    public JLabel labelBrightness;
-    public JPanel panelBrightness, panelButton;
+    public JLabel labelBrightness, labelState;
+    public JPanel panelBottom, panelBrightness, panelRadio;
     public JRadioButton radioAurora, radioCandle, radioFirefly, radioRGB, radioWave;
     public JSlider slideBrightness;
 
     public StoneManagerView(){
         frameMain = new JFrame();
+        panelBottom = new JPanel(new GridLayout(2, 1));
         panelBrightness = new JPanel(new BorderLayout());
-        panelButton = new JPanel(new GridLayout(3, 2));
+        panelRadio = new JPanel(new GridLayout(3, 2));
 
         btnSave = new JButton("저장");
 
         labelBrightness = new JLabel("   밝기");
+        labelState = new JLabel("   색상을 선택한 뒤 저장 버튼을 클릭합니다.");
 
         radioAurora = new JRadioButton("오로라");
         radioCandle = new JRadioButton("촛불");
@@ -40,25 +42,28 @@ public class StoneManagerView{
         groupRadio.add(radioRGB);
         groupRadio.add(radioWave);
 
+        panelBottom.add(labelState);
+        panelBottom.add(btnSave );
+
         panelBrightness.add(BorderLayout.NORTH, labelBrightness);
         panelBrightness.add(BorderLayout.SOUTH, slideBrightness);
 
-        panelButton.add(radioAurora);
-        panelButton.add(radioCandle);
-        panelButton.add(radioFirefly);
-        panelButton.add(radioRGB);
-        panelButton.add(radioWave);
+        panelRadio.add(radioAurora);
+        panelRadio.add(radioCandle);
+        panelRadio.add(radioFirefly);
+        panelRadio.add(radioRGB);
+        panelRadio.add(radioWave);
 
         frameMain.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frameMain.setLayout(new FlowLayout());
         frameMain.setLocationRelativeTo(null);
         frameMain.setResizable(false);
-        frameMain.setSize(420, 170);
+        frameMain.setSize(420, 190);
         frameMain.setTitle("STONE Manager");
         frameMain.setVisible(true);
 
-        frameMain.getContentPane().add(panelButton);
+        frameMain.getContentPane().add(panelRadio);
         frameMain.getContentPane().add(panelBrightness);
-        frameMain.getContentPane().add(btnSave);
+        frameMain.getContentPane().add(panelBottom);
     }
 }

@@ -1,8 +1,6 @@
 package Controller;
 
 import Utils.Log;
-import View.CompleteDialog;
-import View.ConnectingDialog;
 
 import javax.bluetooth.*;
 import javax.microedition.io.Connector;
@@ -19,7 +17,6 @@ public class BTController extends Thread implements DiscoveryListener{
 
     public int[] settingValues = new int[]{50, 1, 255, 255, 255};
 
-    public ConnectingDialog connectingDialog;
     public LocalDevice localDevice;
     public DiscoveryAgent agent;
     public OutputStream dout;
@@ -34,8 +31,8 @@ public class BTController extends Thread implements DiscoveryListener{
 
     @Override
     public void run(){
-        connectingDialog = new ConnectingDialog();
         uiController.enableControl(false);
+        uiController.labelState.setText("Bluetooth 서비스에 연결하는 중...");
         findDevices();
     }
 
@@ -71,7 +68,7 @@ public class BTController extends Thread implements DiscoveryListener{
     }
 
     public void broadcastCommand(){
-        connectingDialog.labelState.setText("   STONE에 설정을 저장하는 중...");
+        uiController.labelState.setText("STONE에 설정을 저장하는 중...");
         for(ServiceRecord sr : services){
             String url = sr.getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
 
@@ -101,8 +98,7 @@ public class BTController extends Thread implements DiscoveryListener{
                 dout.close();
                 conn.close();
 
-                connectingDialog.dispose();
-                new CompleteDialog();
+                uiController.labelState.setText("STONE에 설정이 적용되었습니다!");
                 uiController.enableControl(true);
                 this.stop();
             }catch(Exception e){
@@ -114,7 +110,7 @@ public class BTController extends Thread implements DiscoveryListener{
 
     @Override
     public void deviceDiscovered(RemoteDevice arg0, DeviceClass arg1){
-        connectingDialog.labelState.setText("   STONE을 탐색하는 중...");
+        uiController.labelState.setText("STONE을 탐색하는 중...");
         try{
             String name = arg0.getFriendlyName(true);
 
