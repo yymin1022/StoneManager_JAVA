@@ -1,14 +1,20 @@
 package Controller;
 
+import View.ColorPickerView;
 import View.StoneManagerView;
+import com.bric.colorpicker.ColorPicker;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ItemListener;
 import java.util.Enumeration;
 
 public class UIController{
+    public int[] settingValues = new int[]{50, 1, 255, 255, 255};
+
     BTController btController;
-    int[] settingValues = new int[]{50, 1, 255, 255, 255};
 
     public UIController(StoneManagerView stoneManagerView){
         btController = new BTController();
@@ -20,7 +26,8 @@ public class UIController{
             }else if(stoneManagerView.radioFirefly.isSelected()){
                 settingValues = new int[]{50, 5, 0, 0, 0};
             }else if(stoneManagerView.radioRGB.isSelected()){
-                settingValues = new int[]{50, 1, 255, 64, 129};
+                settingValues = new int[]{50, 1, 0, 0, 0};
+                new ColorPickerView(settingValues, this);
             }else if(stoneManagerView.radioWave.isSelected()){
                 settingValues = new int[]{50, 4, 0, 0, 0};
             }
@@ -40,6 +47,13 @@ public class UIController{
             if(jb.isSelected())
                 System.out.println(jb.getText());
         }
+
+        stoneManagerView.slideBrightness.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                settingValues[0] = stoneManagerView.slideBrightness.getValue();
+            }
+        });
 
         stoneManagerView.btnSave.addActionListener(e -> {
             btController = new BTController();
