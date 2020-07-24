@@ -7,21 +7,24 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.Vector;
 
 public class BTController extends Thread implements DiscoveryListener{
     Log log = new Log();
     UUID defaultUUID;
 
-    private LocalDevice localDevice;
-    private DiscoveryAgent agent;
-    private OutputStream dout;
-    private StreamConnection conn;
-    private Vector<RemoteDevice> devices;
-    private Vector<ServiceRecord> services;
+    public int[] settingValues = new int[]{30, 4, 0, 0, 0};
+
+    public LocalDevice localDevice;
+    public DiscoveryAgent agent;
+    public OutputStream dout;
+    public StreamConnection conn;
+    public Vector<RemoteDevice> devices;
+    public Vector<ServiceRecord> services;
 
     public BTController(){
-        services = new Vector<ServiceRecord>();
+        services = new Vector<>();
     }
 
     @Override
@@ -31,8 +34,8 @@ public class BTController extends Thread implements DiscoveryListener{
 
     private void findDevices(){
         try{
-            devices              = new Vector<RemoteDevice>();
-            LocalDevice local    = LocalDevice.getLocalDevice();
+            devices = new Vector<>();
+            LocalDevice local = LocalDevice.getLocalDevice();
             DiscoveryAgent agent = local.getDiscoveryAgent();
 
             agent.startInquiry(DiscoveryAgent.GIAC, this);
@@ -56,10 +59,11 @@ public class BTController extends Thread implements DiscoveryListener{
 
             agent.searchServices(null, uuids, device, this);
         }catch(Exception e){
+            log.printLog(1, e.toString());
         }
     }
 
-    public void broadcastCommand(String str){
+    public void broadcastCommand(){
         for(ServiceRecord sr : services){
             String url = sr.getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
 
@@ -69,14 +73,13 @@ public class BTController extends Thread implements DiscoveryListener{
                 conn = (StreamConnection) Connector.open(url);
                 dout = conn.openOutputStream();
 
-                int[] paramVarArgs = new int[]{30, 4, 0, 0, 0};
-                byte[] arrayOfByte0 = new byte[paramVarArgs.length];
+                byte[] arrayOfByte0 = new byte[settingValues.length];
                 byte[] arrayOfByte1;
                 int i = 0;
                 while(true){
                     arrayOfByte1 = arrayOfByte0;
-                    if(i < paramVarArgs.length){
-                        arrayOfByte0[i] = (byte)paramVarArgs[i];
+                    if(i < settingValues.length){
+                        arrayOfByte0[i] = (byte)settingValues[i];
                         i++;
                         continue;
                     }
@@ -89,8 +92,10 @@ public class BTController extends Thread implements DiscoveryListener{
                 dout.flush();
                 dout.close();
                 conn.close();
+
+                this.stop();
             }catch(Exception e){
-                e.printStackTrace();
+                log.printLog(1, e.toString());
             }
         }
     }
@@ -107,6 +112,7 @@ public class BTController extends Thread implements DiscoveryListener{
                 devices.add(arg0);
             }
         }catch(IOException e){
+            log.printLog(1, e.toString());
         }
     }
 
@@ -120,14 +126,12 @@ public class BTController extends Thread implements DiscoveryListener{
 
     @Override
     public void serviceSearchCompleted(int arg0, int arg1){
-        broadcastCommand(new String("Hello world!"));
+        broadcastCommand();
     }
 
     @Override
     public void servicesDiscovered(int arg0, ServiceRecord[] arg1){
-        for(ServiceRecord x : arg1){
-            services.add(x);
-        }
+        Collections.addAll(services, arg1);
     }
 
     // frame functions are copied from Pantech Official StoneManager Android Application
@@ -139,14 +143,10 @@ public class BTController extends Thread implements DiscoveryListener{
         boolean bool;
         int i = paramArrayOfbyte.length;
 
-        if((paramByte & 0x1) != 0){
-            bool = true;
-        }else{
-            bool = false;
-        }
-        if (bool) {
+        bool = (paramByte & 0x1) != 0;
+        if(bool){
             i = 1;
-        } else {
+        }else{
             i = 0;
         }
         i = paramInt3 + 8 + i;
