@@ -9,7 +9,7 @@ public class StoneManagerView{
     public JFrame frameMain;
     public JLabel labelBrightness, labelState;
     public JPanel panelBottom, panelBrightness, panelRadio;
-    public JRadioButton radioAurora, radioCandle, radioFirefly, radioRGB, radioWave;
+    public JRadioButton radioAurora, radioCandle, radioFirefly, radioOff, radioRGB, radioWave;
     public JSlider slideBrightness;
 
     public StoneManagerView(){
@@ -26,6 +26,7 @@ public class StoneManagerView{
         radioAurora = new JRadioButton("오로라");
         radioCandle = new JRadioButton("촛불");
         radioFirefly = new JRadioButton("반딧불");
+        radioOff = new JRadioButton("끄기");
         radioRGB = new JRadioButton("단일 색상");
         radioWave = new JRadioButton("파도");
 
@@ -39,11 +40,12 @@ public class StoneManagerView{
         groupRadio.add(radioAurora);
         groupRadio.add(radioCandle);
         groupRadio.add(radioFirefly);
+        groupRadio.add(radioOff);
         groupRadio.add(radioRGB);
         groupRadio.add(radioWave);
 
         panelBottom.add(labelState);
-        panelBottom.add(btnSave );
+        panelBottom.add(btnSave);
 
         panelBrightness.add(BorderLayout.NORTH, labelBrightness);
         panelBrightness.add(BorderLayout.SOUTH, slideBrightness);
@@ -53,6 +55,7 @@ public class StoneManagerView{
         panelRadio.add(radioFirefly);
         panelRadio.add(radioRGB);
         panelRadio.add(radioWave);
+        panelRadio.add(radioOff);
 
         frameMain.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frameMain.setLayout(new FlowLayout());

@@ -13,7 +13,7 @@ public class UIController{
     BTController btController;
     public JButton btnSave;
     public JLabel labelBrightness, labelState;
-    public JRadioButton radioAurora, radioCandle, radioFirefly, radioRGB, radioWave;
+    public JRadioButton radioAurora, radioCandle, radioFirefly, radioOff, radioRGB, radioWave;
     public JSlider slideBrightness;
 
     public UIController(StoneManagerView stoneManagerView){
@@ -23,6 +23,7 @@ public class UIController{
         radioAurora = stoneManagerView.radioAurora;
         radioCandle = stoneManagerView.radioCandle;
         radioFirefly = stoneManagerView.radioFirefly;
+        radioOff = stoneManagerView.radioOff;
         radioRGB = stoneManagerView.radioRGB;
         radioWave = stoneManagerView.radioWave;
         slideBrightness = stoneManagerView.slideBrightness;
@@ -39,12 +40,15 @@ public class UIController{
                 new ColorPickerView(settingValues, this);
             }else if(radioWave.isSelected()){
                 settingValues = new int[]{50, 4, 0, 0, 0};
+            }else if(radioOff.isSelected()){
+                settingValues = new int[]{50, 0, 0, 0, 0};
             }
         };
 
         radioAurora.addItemListener(radioListener);
         radioCandle.addItemListener(radioListener);
         radioFirefly.addItemListener(radioListener);
+        radioOff.addItemListener(radioListener);
         radioRGB.addItemListener(radioListener);
         radioWave.addItemListener(radioListener);
 
