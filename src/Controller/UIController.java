@@ -29,18 +29,18 @@ public class UIController{
         
         ItemListener radioListener = e -> {
             if(radioAurora.isSelected()){
-                settingValues = new int[]{50, 3, 0, 0, 0};
+                settingValues = new int[]{slideBrightness.getValue(), 3, 0, 0, 0};
             }else if(radioCandle.isSelected()){
-                settingValues = new int[]{50, 2, 0, 0, 0};
+                settingValues = new int[]{slideBrightness.getValue(), 2, 0, 0, 0};
             }else if(radioFirefly.isSelected()){
-                settingValues = new int[]{50, 5, 0, 0, 0};
+                settingValues = new int[]{slideBrightness.getValue(), 5, 0, 0, 0};
             }else if(radioRGB.isSelected()){
-                settingValues = new int[]{50, 1, 0, 0, 0};
+                settingValues = new int[]{slideBrightness.getValue(), 1, 0, 0, 0};
                 new ColorPickerView(settingValues, this);
             }else if(radioWave.isSelected()){
-                settingValues = new int[]{50, 4, 0, 0, 0};
+                settingValues = new int[]{slideBrightness.getValue(), 4, 0, 0, 0};
             }else if(radioOff.isSelected()){
-                settingValues = new int[]{50, 0, 0, 0, 0};
+                settingValues = new int[]{slideBrightness.getValue(), 0, 0, 0, 0};
             }
         };
 
