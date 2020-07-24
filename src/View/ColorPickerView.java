@@ -23,7 +23,7 @@ public class ColorPickerView extends JFrame{
         setContentPane(panelColorPicker);
         setLocationRelativeTo(null);
         setResizable(false);
-        setSize(550, 410);
+        setSize(550, 380);
         setTitle("Color Picker");
         setUndecorated(true);
         setVisible(true);

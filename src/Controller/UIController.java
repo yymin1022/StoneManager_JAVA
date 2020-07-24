@@ -11,29 +11,43 @@ public class UIController{
     public int[] settingValues = new int[]{50, 1, 255, 255, 255};
 
     BTController btController;
+    public JButton btnSave;
+    public JRadioButton radioAurora;
+    public JRadioButton radioCandle;
+    public JRadioButton radioFirefly;
+    public JRadioButton radioRGB;
+    public JRadioButton radioWave;
+    public JSlider slideBrightness;
 
     public UIController(StoneManagerView stoneManagerView){
-        btController = new BTController();
+        btnSave = stoneManagerView.btnSave;
+        radioAurora = stoneManagerView.radioAurora;
+        radioCandle = stoneManagerView.radioCandle;
+        radioFirefly = stoneManagerView.radioFirefly;
+        radioRGB = stoneManagerView.radioRGB;
+        radioWave = stoneManagerView.radioWave;
+        slideBrightness = stoneManagerView.slideBrightness;
+        
         ItemListener radioListener = e -> {
-            if(stoneManagerView.radioAurora.isSelected()){
+            if(radioAurora.isSelected()){
                 settingValues = new int[]{50, 3, 0, 0, 0};
-            }else if(stoneManagerView.radioCandle.isSelected()){
+            }else if(radioCandle.isSelected()){
                 settingValues = new int[]{50, 2, 0, 0, 0};
-            }else if(stoneManagerView.radioFirefly.isSelected()){
+            }else if(radioFirefly.isSelected()){
                 settingValues = new int[]{50, 5, 0, 0, 0};
-            }else if(stoneManagerView.radioRGB.isSelected()){
+            }else if(radioRGB.isSelected()){
                 settingValues = new int[]{50, 1, 0, 0, 0};
                 new ColorPickerView(settingValues, this);
-            }else if(stoneManagerView.radioWave.isSelected()){
+            }else if(radioWave.isSelected()){
                 settingValues = new int[]{50, 4, 0, 0, 0};
             }
         };
 
-        stoneManagerView.radioAurora.addItemListener(radioListener);
-        stoneManagerView.radioCandle.addItemListener(radioListener);
-        stoneManagerView.radioFirefly.addItemListener(radioListener);
-        stoneManagerView.radioRGB.addItemListener(radioListener);
-        stoneManagerView.radioWave.addItemListener(radioListener);
+        radioAurora.addItemListener(radioListener);
+        radioCandle.addItemListener(radioListener);
+        radioFirefly.addItemListener(radioListener);
+        radioRGB.addItemListener(radioListener);
+        radioWave.addItemListener(radioListener);
 
         Enumeration<AbstractButton> enums = stoneManagerView.groupRadio.getElements();
         while(enums.hasMoreElements()){
@@ -44,12 +58,32 @@ public class UIController{
                 System.out.println(jb.getText());
         }
 
-        stoneManagerView.slideBrightness.addChangeListener(e -> settingValues[0] = stoneManagerView.slideBrightness.getValue());
+        slideBrightness.addChangeListener(e -> settingValues[0] = slideBrightness.getValue());
 
-        stoneManagerView.btnSave.addActionListener(e -> {
-            btController = new BTController();
+        btnSave.addActionListener(e -> {
+            btController = new BTController(this);
             btController.settingValues = settingValues;
             btController.start();
         });
+    }
+    
+    public void enableControl(boolean isEnabled){
+        if(isEnabled){
+            btnSave.setEnabled(true);
+            radioAurora.setEnabled(true);
+            radioCandle.setEnabled(true);
+            radioFirefly.setEnabled(true);
+            radioRGB.setEnabled(true);
+            radioWave.setEnabled(true);
+            slideBrightness.setEnabled(true);
+        }else{
+            btnSave.setEnabled(false);
+            radioAurora.setEnabled(false);
+            radioCandle.setEnabled(false);
+            radioFirefly.setEnabled(false);
+            radioRGB.setEnabled(false);
+            radioWave.setEnabled(false);
+            slideBrightness.setEnabled(false);
+        }
     }
 }

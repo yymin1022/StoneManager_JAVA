@@ -14,6 +14,7 @@ import java.util.Vector;
 
 public class BTController extends Thread implements DiscoveryListener{
     Log log = new Log();
+    UIController uiController;
     UUID defaultUUID;
 
     public int[] settingValues = new int[]{50, 1, 255, 255, 255};
@@ -26,13 +27,15 @@ public class BTController extends Thread implements DiscoveryListener{
     public Vector<RemoteDevice> devices;
     public Vector<ServiceRecord> services;
 
-    public BTController(){
+    public BTController(UIController uiController){
         services = new Vector<>();
+        this.uiController = uiController;
     }
 
     @Override
     public void run(){
         connectingDialog = new ConnectingDialog();
+        uiController.enableControl(false);
         findDevices();
     }
 
@@ -99,8 +102,8 @@ public class BTController extends Thread implements DiscoveryListener{
                 conn.close();
 
                 connectingDialog.dispose();
-
                 new CompleteDialog();
+                uiController.enableControl(true);
                 this.stop();
             }catch(Exception e){
                 log.printLog(1, e.toString());
