@@ -39,8 +39,16 @@ public class UIController{
                 new ColorPickerView(settingValues, this);
             }else if(radioWave.isSelected()){
                 settingValues = new int[]{slideBrightness.getValue(), 4, 0, 0, 0};
-            }else if(radioOff.isSelected()){
+            }
+            
+            if(radioOff.isSelected()) {
                 settingValues = new int[]{slideBrightness.getValue(), 0, 0, 0, 0};
+
+                labelBrightness.setEnabled(false);
+                slideBrightness.setEnabled(false);
+            }else{
+                labelBrightness.setEnabled(true);
+                slideBrightness.setEnabled(true);
             }
         };
 
