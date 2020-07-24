@@ -69,7 +69,7 @@ public class BTController extends Thread implements DiscoveryListener{
                 conn = (StreamConnection) Connector.open(url);
                 dout = conn.openOutputStream();
 
-                int[] paramVarArgs = new int[]{100, 3, 0, 0, 0};
+                int[] paramVarArgs = new int[]{30, 4, 0, 0, 0};
                 byte[] arrayOfByte0 = new byte[paramVarArgs.length];
                 byte[] arrayOfByte1;
                 int i = 0;

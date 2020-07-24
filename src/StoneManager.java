@@ -1,3 +1,4 @@
+import Controller.BTController;
 import Utils.Log;
 
 import javax.bluetooth.*;
@@ -14,5 +15,10 @@ public class StoneManager{
         } catch (BluetoothStateException e) {
             log.printLog(1, e.toString());
         }
+
+        BTController btController = new BTController();
+        btController.start();
+
+        while(true);
     }
 }
