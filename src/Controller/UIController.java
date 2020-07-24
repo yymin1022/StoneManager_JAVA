@@ -2,12 +2,8 @@ package Controller;
 
 import View.ColorPickerView;
 import View.StoneManagerView;
-import com.bric.colorpicker.ColorPicker;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.awt.event.ItemListener;
 import java.util.Enumeration;
 
@@ -48,12 +44,7 @@ public class UIController{
                 System.out.println(jb.getText());
         }
 
-        stoneManagerView.slideBrightness.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                settingValues[0] = stoneManagerView.slideBrightness.getValue();
-            }
-        });
+        stoneManagerView.slideBrightness.addChangeListener(e -> settingValues[0] = stoneManagerView.slideBrightness.getValue());
 
         stoneManagerView.btnSave.addActionListener(e -> {
             btController = new BTController();
