@@ -5,13 +5,20 @@ import com.bric.colorpicker.ColorPicker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ColorPickerView extends JFrame{
     public ColorPickerView(int[] settingValues, UIController uiController){
+        uiController.enableControl(false);
+
         JButton btnClose = new JButton("확인");
         JPanel panelColorPicker =  new JPanel(new FlowLayout());
 
-        btnClose.addActionListener(e -> this.dispose());
+        btnClose.addActionListener(e -> {
+            ColorPickerView.this.dispose();
+            uiController.enableControl(true);
+        });
 
         com.bric.colorpicker.ColorPicker colorPicker = new ColorPicker(true, false);
         colorPicker.setColor(Color.BLUE);
