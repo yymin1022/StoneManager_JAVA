@@ -69,26 +69,14 @@ public class UIController{
     }
     
     public void enableControl(boolean isEnabled){
-        if(isEnabled){
-            btnSave.setEnabled(true);
-            labelBrightness.setEnabled(true);
-            radioAurora.setEnabled(true);
-            radioCandle.setEnabled(true);
-            radioFirefly.setEnabled(true);
-            radioOff.setEnabled(true);
-            radioRGB.setEnabled(true);
-            radioWave.setEnabled(true);
-            slideBrightness.setEnabled(true);
-        }else{
-            btnSave.setEnabled(false);
-            labelBrightness.setEnabled(false);
-            radioAurora.setEnabled(false);
-            radioCandle.setEnabled(false);
-            radioFirefly.setEnabled(false);
-            radioOff.setEnabled(false);
-            radioRGB.setEnabled(false);
-            radioWave.setEnabled(false);
-            slideBrightness.setEnabled(false);
-        }
+        btnSave.setEnabled(isEnabled);
+        labelBrightness.setEnabled(isEnabled);
+        radioAurora.setEnabled(isEnabled);
+        radioCandle.setEnabled(isEnabled);
+        radioFirefly.setEnabled(isEnabled);
+        radioOff.setEnabled(isEnabled);
+        radioRGB.setEnabled(isEnabled);
+        radioWave.setEnabled(isEnabled);
+        slideBrightness.setEnabled(isEnabled);
     }
 }

@@ -5,8 +5,6 @@ import com.bric.colorpicker.ColorPicker;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ColorPickerView extends JFrame{
     public ColorPickerView(int[] settingValues, UIController uiController){
