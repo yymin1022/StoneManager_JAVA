@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\yymin\Downloads\StoneManager_JAVA.jar</jar>
+  <outfile>C:\Users\yymin\Downloads\StoneManager_JAVA.exe</outfile>
+  <errTitle>JAVA is Needed.</errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon></icon>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.7</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>1.0_release1</txtFileVersion>
+    <fileDescription>STONE Manager by yymin1022@gmail.com</fileDescription>
+    <copyright>yymin1022@gmail.com</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>1.0_release1</txtProductVersion>
+    <productName>STONE Manager</productName>
+    <companyName></companyName>
+    <internalName>STONE Manager</internalName>
+    <originalFilename>STONE Manager.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>KOREAN</language>
+  </versionInfo>
+</launch4jConfig>
