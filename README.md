@@ -1,9 +1,9 @@
 # STONE Manager for Windows
 
 <img src="Images/program_main.png" width="30%" height="30%" alt="Screenshot"></img>
-<img src="Images/program_main_run1.png" width="30%" height="30%" alt="Screenshot"></img>
-<img src="Images/program_main_run2.png" width="30%" height="30%" alt="Screenshot"></img>
-<img src="Images/program_main_color.png" width="30%" height="30%" alt="Screenshot"></img>
+<img src="Images/program_run1.png" width="30%" height="30%" alt="Screenshot"></img>
+<img src="Images/program_run2.png" width="30%" height="30%" alt="Screenshot"></img>
+<img src="Images/program_color.png" width="30%" height="30%" alt="Screenshot"></img>
 
 2016년 Pantech이 출시한 IM-100 스마트폰에 번들로 제공된 블루투스 스피커인 STONE을
 Windows에서 제어하고 무드램프를 설정합니다.
